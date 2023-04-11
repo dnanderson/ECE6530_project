@@ -31,7 +31,40 @@ create the sound itself, it can however be called and used in other
 code to generate the sound.  Examine it if further insight is needed
 on how the bell sound is generated.
 
+BellSound4_3.m
 
+This code implements the following functions that are not included in the
+general MATLAB license:
+bellenv.m - used in question 4.1
+bell.m - used in question 4.2
+plotspec.m - part of dsp first toolbox, instructions for downloading given
+   in S-7 section below
+spectgr.m - part of dsp first toolbox, instructions for downloading given
+   in S-7 section below
+
+Code is able to run as long as the functions mentioned above are added to the 
+environment path or are included in the project folder. 
+
+   file uses: This file explores the effects that different carrier and 
+   modulating frequencies have on a sound and includes some comments about 
+   the effects that different parameters have on the frequency spectrum of
+   said sounds.
+
+BellComments4_4.m
+
+This code implements the following functions that are not included in the general
+MATLAB license:
+bellenv.m - used in question 4.1
+bell.m - used in question 4.2
+
+Code is able to run as long as the funcitons mentioned above are added to the 
+environement path or are included in the project folder. 
+
+   file uses: This file further explores the effects that different carrier 
+   and modulating frequencies have on a generated sound and includes some 
+   comments about the effects that different parameters have on the frequency 
+   spectrum of said sounds.
+   
 ## S-7: Spectrograms of AM and FM Signals
 ### Derek Anderson
 
