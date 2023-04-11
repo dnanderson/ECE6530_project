@@ -14,7 +14,7 @@ function xx = bell(ff, Io, tau, dur, fsamp)
 
 Psi_m = -pi/2; %arbitrary phase constant, -pi/2 starts the sound at amplitude zero
 Psi_c = -pi/2; %arbitrary phase constant, -pi/2 starts the sound at amplitude zero
-t = 0:dur/fsamp:dur; %create time array, duration divided by sampling rate
+t = 0:1/fsamp:dur; %create time array, duration divided by sampling rate
 BEnvelope = bellenv(tau, dur, fsamp); %call bell envelope function (exponential decay)
 
 %produce bell sound. This is essentially a cosine of a cosine with a two
