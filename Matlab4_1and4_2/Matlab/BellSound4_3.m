@@ -34,8 +34,8 @@ y1fft = fft(y1, n1);
 f1 = (0:n1)*fsamp1/n1;
 power1 = abs(y1fft).^2/n1;
 
-figure();
-plot(f1(1:floor(n1/2)),power1(1:floor(n1/2)));
+%figure();
+%plot(f1(1:floor(n1/2)),power1(1:floor(n1/2)));
 
 peaks1 = islocalmax(power1, 'MinProminence', 1);
 f01 = 0;
@@ -92,6 +92,12 @@ plot(t1, I_t1/max(I_t1), '-r');
 hold off;
 title('Case 1 fi(t) vs. t');
 
+figure();
+plot(t1, fi_t1/max(fi_t1), '-b');
+hold on;
+plot(t1, I_t1/max(I_t1), '-r');
+hold off;
+title('Case 1 fi(t) vs. t');
 %% d) Display a spectrogram of the signal
 
 figure();
@@ -180,8 +186,8 @@ y2fft = fft(y2, n2);
 f2 = (0:n2)*fsamp2/n2;
 power2 = abs(y2fft).^2/n2;
 
-figure();
-plot(f2(1:floor(n2/2)),power2(1:floor(n2/2)));
+%figure();
+%plot(f2(1:floor(n2/2)),power2(1:floor(n2/2)));
 
 peaks2 = islocalmax(power2, 'MinProminence', 1);
 f02 = 0;
@@ -324,8 +330,8 @@ y3fft = fft(y3, n3);
 f3 = (0:n3)*fsamp3/n3;
 power3 = abs(y3fft).^2/n3;
 
-figure();
-plot(f3(1:floor(n3/2)),power3(1:floor(n3/2)));
+%figure();
+%plot(f3(1:floor(n3/2)),power3(1:floor(n3/2)));
 
 peaks3 = islocalmax(power3, 'MinProminence', 1);
 f03 = 0;
@@ -469,8 +475,8 @@ y4fft = fft(y4, n4);
 f4 = (0:n4)*fsamp4/n4;
 power4 = abs(y4fft).^2/n4;
 
-figure();
-plot(f4(1:floor(n4/2)),power4(1:floor(n4/2)));
+%figure();
+%plot(f4(1:floor(n4/2)),power4(1:floor(n4/2)));
 
 peaks4 = islocalmax(power4, 'MinProminence', .5);
 f04 = 0;
@@ -614,8 +620,8 @@ y5fft = fft(y5, n5);
 f5 = (0:n5)*fsamp5/n5;
 power5 = abs(y5fft).^2/n5;
 
-figure();
-plot(f5(1:floor(n5/2)),power5(1:floor(n5/2)));
+%figure();
+%plot(f5(1:floor(n5/2)),power5(1:floor(n5/2)));
 
 peaks5 = islocalmax(power5, 'MinProminence', .5);
 f05 = 0;
@@ -757,8 +763,8 @@ y6fft = fft(y6, n6);
 f6 = (0:n6)*fsamp6/n6;
 power6 = abs(y6fft).^2/n6;
 
-figure();
-plot(f6(1:floor(n6/2)),power6(1:floor(n6/2)));
+%figure();
+%plot(f6(1:floor(n6/2)),power6(1:floor(n6/2)));
 
 peaks6 = islocalmax(power6, 'MinProminence', .5);
 f06 = 0;
