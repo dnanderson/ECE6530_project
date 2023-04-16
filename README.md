@@ -5,7 +5,7 @@
 ### Thomas Crowne
 ####### LAB P4 FILE LIST #######
 ./lab_P4_README.txt   - Readme file
-./main.m            - Main Lab P4 script, see section X for information on how to run
+./main.m              - Main Lab P4 script, see section X for information on how to run
 ./beat.m              - Helper function for generating beat waveforms
 ./mychirp.m           - Helper function for generating chirp waveforms
 ./html/Lab_P4.html    - Published HTML file containing MATLAB script from Lab_P4.m and generated figures
