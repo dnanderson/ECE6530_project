@@ -1,0 +1,201 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-28"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">ECE 6530 Lab P4 (Final Project)</a></li><li><a href="#2">4.1a)</a></li><li><a href="#3">4.1b)</a></li><li><a href="#4">4.2a)</a></li><li><a href="#5">4.2b)</a></li><li><a href="#6">4.3)</a></li></ul></div><h2 id="1">ECE 6530 Lab P4 (Final Project)</h2><p>Creator: Thomas Crowne Created: 4/2/2023 uID: u1369330 Description: See p4_README.txt</p><pre class="codeinput">clear;clc;close <span class="string">all</span>;
+</pre><h2 id="2">4.1a)</h2><p>Part a was to create beat.m, see lab_p4_README.txt for more info</p><h2 id="3">4.1b)</h2><p>Create a wave using function beat.m from part a, with the parameters listed below</p><pre class="codeinput">A = 10;
+B = 10;
+fc = 1000;
+delf = 10;
+fsamp = 11025;
+dur = 1;
+
+[xx tt] = beat(A,B,fc,delf,fsamp,dur);
+
+figure
+plot(tt,xx);
+xlim([0 0.2]);
+title(<span class="string">'Test Waveform Beat Function'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+<span class="comment">% This produces a waveform with a beat frequency (envelope) = 2*delf = 20Hz. The</span>
+<span class="comment">% amplitude is 20. The high-frequency period is 1kHz.</span>
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="4">4.2a)</h2><p>Create a wave using function beat.m from part 4.1a, with the parameters listed below</p><pre class="codeinput">A = 1;
+B = 1;
+fc = 2000;
+delf = 32;
+fsamp = 11025;
+dur = 0.26;
+
+[xx tt] = beat(A,B,fc,delf,fsamp,dur);
+</pre><h2 id="5">4.2b)</h2><p>Create spectrograms of the beat waveform from part 4.2a with two different window lengths, 2048 and 16</p><pre class="codeinput">figure
+spectrogram(xx,2048,[],2048,fsamp); colormap(1-gray(256));
+title(<span class="string">'Spectrogram with Window Length 2048'</span>);
+<span class="comment">% The two frequency components centered around 2kHz are clearly visible in</span>
+<span class="comment">% the spectrogram</span>
+
+figure
+spectrogram(xx,16,[],16,fsamp); colormap(1-gray(256))
+title(<span class="string">'Spectrogram with Window Length 16'</span>);
+<span class="comment">% The unique frequencies are no longer visually separable as the window length is</span>
+<span class="comment">% too short</span>
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="6">4.3)</h2><p>Create a wave using function mychirp, with the parameters listed below</p><pre class="codeinput">dur = 3;
+f1 = 5000;
+f2 = 300;
+
+[xx ~] = mychirp(f1,f2,dur);
+
+figure
+spectrogram(xx,2048,[],2048,fsamp); colormap(1-gray(256))
+title(<span class="string">'Chirp Spectrogram with Window Length 2048'</span>);
+<span class="comment">% This spectrogram shows the frequency sweeping linearly from 5000Hz to</span>
+<span class="comment">% 300Hz</span>
+
+soundsc(xx, fsamp ); <span class="comment">% Play the generated chirp signal</span>
+<span class="comment">% Playing this signal produces a tone that starts with a high pitch and</span>
+<span class="comment">% descends to a low pitch, which matches the specification.</span>
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ECE 6530 Lab P4 (Final Project)
+% Creator: Thomas Crowne
+% Created: 4/2/2023
+% uID: u1369330
+% Description: See p4_README.txt
+
+clear;clc;close all;
+%% 4.1a)
+% Part a was to create beat.m, see lab_p4_README.txt for more info
+
+%% 4.1b)
+% Create a wave using function beat.m from part a, with the parameters listed
+% below
+A = 10;
+B = 10;
+fc = 1000;
+delf = 10;
+fsamp = 11025;
+dur = 1;
+
+[xx tt] = beat(A,B,fc,delf,fsamp,dur);
+
+figure
+plot(tt,xx);
+xlim([0 0.2]);
+title('Test Waveform Beat Function');
+xlabel('Time (s)');
+ylabel('Magnitude');
+% This produces a waveform with a beat frequency (envelope) = 2*delf = 20Hz. The
+% amplitude is 20. The high-frequency period is 1kHz.
+
+%% 4.2a) 
+% Create a wave using function beat.m from part 4.1a, with the parameters listed
+% below
+A = 1;
+B = 1;
+fc = 2000;
+delf = 32;
+fsamp = 11025;
+dur = 0.26;
+
+[xx tt] = beat(A,B,fc,delf,fsamp,dur);
+
+%% 4.2b)
+% Create spectrograms of the beat waveform from part 4.2a with two
+% different window lengths, 2048 and 16
+figure
+spectrogram(xx,2048,[],2048,fsamp); colormap(1-gray(256));
+title('Spectrogram with Window Length 2048');
+% The two frequency components centered around 2kHz are clearly visible in
+% the spectrogram
+
+figure
+spectrogram(xx,16,[],16,fsamp); colormap(1-gray(256))
+title('Spectrogram with Window Length 16');
+% The unique frequencies are no longer visually separable as the window length is
+% too short
+
+%% 4.3)
+% Create a wave using function mychirp, with the parameters listed
+% below
+dur = 3;
+f1 = 5000;
+f2 = 300;
+
+[xx ~] = mychirp(f1,f2,dur);
+
+figure
+spectrogram(xx,2048,[],2048,fsamp); colormap(1-gray(256))
+title('Chirp Spectrogram with Window Length 2048');
+% This spectrogram shows the frequency sweeping linearly from 5000Hz to
+% 300Hz
+
+soundsc(xx, fsamp ); % Play the generated chirp signal
+% Playing this signal produces a tone that starts with a high pitch and
+% descends to a low pitch, which matches the specification.
+##### SOURCE END #####
+--></body></html>
