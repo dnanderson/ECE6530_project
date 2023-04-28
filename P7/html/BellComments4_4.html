@@ -1,0 +1,378 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Modifying the Fundamental Frequency</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-28"><meta name="DC.source" content="BellComments4_4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Modifying the Fundamental Frequency</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Test 1: Fc = 50 and Fm = 100 =&gt; F0 ~ 50</a></li><li><a href="#2">Test 2: fc = 200 fm = 400 =&gt; F0 ~ 200</a></li><li><a href="#3">Test 3: fc = 400 fm = 800 =&gt; F0 ~ 400</a></li><li><a href="#4">Test 4: fc = 800 fm = 1600 =&gt; F0 ~ 800</a></li><li><a href="#5">Frequency Modulation Ratio Tests</a></li><li><a href="#6">Test 1: 5:7 Ratio (f0 = 40)</a></li><li><a href="#7">Test 2: 7:5 Ratio (f0 = 40)</a></li><li><a href="#8">Test 3: 1:6</a></li><li><a href="#9">Test 4: 7:11 Ratio</a></li><li><a href="#10">Which parameters sound best?</a></li></ul></div><h2 id="1">Test 1: Fc = 50 and Fm = 100 =&gt; F0 ~ 50</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff1 = [50,100];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io1 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau1 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur1 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp1 = 11025;
+
+
+y1 = bell(ff1,Io1,tau1,dur1,fsamp1);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y1, fsamp1);
+
+<span class="comment">%%Describe what you hear:</span>
+<span class="comment">% In this test the pitch was very low and the sound seemed to decay or end</span>
+<span class="comment">% realtively quick.</span>
+</pre><h2 id="2">Test 2: fc = 200 fm = 400 =&gt; F0 ~ 200</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff2 = [200,400];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io2 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau2 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur2 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp2 = 11025;
+
+
+y2 = bell(ff2,Io2,tau2,dur2,fsamp2);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y2, fsamp2);
+
+<span class="comment">%%Describe what you hear:</span>
+<span class="comment">% In this test the pitch was was at a comfortable level and the sound seemed</span>
+<span class="comment">% to decay relatively slow.</span>
+</pre><h2 id="3">Test 3: fc = 400 fm = 800 =&gt; F0 ~ 400</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff3 = [400,800];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io3 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau3 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur3 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp3 = 11025;
+
+
+y3 = bell(ff3,Io3,tau3,dur3,fsamp3);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y3, fsamp3);
+</pre><h2 id="4">Test 4: fc = 800 fm = 1600 =&gt; F0 ~ 800</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff4 = [800,1600];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io4 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau4 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur4 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp4 = 11025;
+
+
+y4 = bell(ff4,Io4,tau4,dur4,fsamp4);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y4, fsamp4);
+
+<span class="comment">%%Describe what you hear:</span>
+<span class="comment">% In this test the pitch was was at a very high level and the overtones</span>
+<span class="comment">% were not very pleasant to listen to. The harmonics or overtones decayed</span>
+<span class="comment">% quickly but the fundamental frequency seemed to decay at a slower rate.</span>
+</pre><h2 id="5">Frequency Modulation Ratio Tests</h2><h2 id="6">Test 1: 5:7 Ratio (f0 = 40)</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff5 = [200, 280];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io5 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau5 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur5 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp5 = 11025;
+
+
+y5 = bell(ff5,Io5,tau5,dur5,fsamp5);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y5, fsamp5);
+</pre><h2 id="7">Test 2: 7:5 Ratio (f0 = 40)</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff6 = [280,200];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io6 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau6 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur6 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp6 = 11025;
+
+
+y6 = bell(ff6,Io6,tau6,dur6,fsamp6);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y6, fsamp6);
+</pre><h2 id="8">Test 3: 1:6</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff7 = [110,610];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io7 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau7 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur7 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp7 = 11025;
+
+
+y7 = bell(ff7,Io7,tau7,dur7,fsamp7);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y7, fsamp7);
+</pre><h2 id="9">Test 4: 7:11 Ratio</h2><p>ff = frequency vector (containing fc and fm)</p><pre class="codeinput">ff8 = [700,1100];
+<span class="comment">% Io = scale factor for modulation index</span>
+Io8 = 10;
+<span class="comment">% tau = decay parameter for A(t) and I(t)</span>
+tau8 = 2;
+<span class="comment">% dur = duration (in sec.) of the output signal</span>
+dur8 = 6;
+<span class="comment">% fsamp = sampling rate</span>
+fsamp8 = 11025;
+
+
+y8 = bell(ff8,Io8,tau8,dur8,fsamp8);
+
+<span class="comment">%play the sound (array and sampling rate)</span>
+soundsc(y8, fsamp8);
+</pre><h2 id="10">Which parameters sound best?</h2><pre class="codeinput"><span class="comment">% I think that the 5:7 or 1:2 ratios sound the best. With ratios that have</span>
+<span class="comment">% the carrier frequency greater than the modulating frequency the sound</span>
+<span class="comment">% seems clunky and like it interferes with itself. The 7:11 ratio had so</span>
+<span class="comment">% many tones in it that it was hard to listen to.</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Modifying the Fundamental Frequency
+
+%% Test 1: Fc = 50 and Fm = 100 => F0 ~ 50
+% ff = frequency vector (containing fc and fm)
+ff1 = [50,100];
+% Io = scale factor for modulation index
+Io1 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau1 = 2;
+% dur = duration (in sec.) of the output signal
+dur1 = 6;
+% fsamp = sampling rate
+fsamp1 = 11025;
+
+
+y1 = bell(ff1,Io1,tau1,dur1,fsamp1);
+
+%play the sound (array and sampling rate)
+soundsc(y1, fsamp1);
+
+%%Describe what you hear:
+% In this test the pitch was very low and the sound seemed to decay or end
+% realtively quick. 
+
+%% Test 2: fc = 200 fm = 400 => F0 ~ 200
+% ff = frequency vector (containing fc and fm)
+ff2 = [200,400];
+% Io = scale factor for modulation index
+Io2 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau2 = 2;
+% dur = duration (in sec.) of the output signal
+dur2 = 6;
+% fsamp = sampling rate
+fsamp2 = 11025;
+
+
+y2 = bell(ff2,Io2,tau2,dur2,fsamp2);
+
+%play the sound (array and sampling rate)
+soundsc(y2, fsamp2);
+
+%%Describe what you hear:
+% In this test the pitch was was at a comfortable level and the sound seemed 
+% to decay relatively slow.
+
+%% Test 3: fc = 400 fm = 800 => F0 ~ 400
+% ff = frequency vector (containing fc and fm)
+ff3 = [400,800];
+% Io = scale factor for modulation index
+Io3 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau3 = 2;
+% dur = duration (in sec.) of the output signal
+dur3 = 6;
+% fsamp = sampling rate
+fsamp3 = 11025;
+
+
+y3 = bell(ff3,Io3,tau3,dur3,fsamp3);
+
+%play the sound (array and sampling rate)
+soundsc(y3, fsamp3);
+
+%% Test 4: fc = 800 fm = 1600 => F0 ~ 800
+% ff = frequency vector (containing fc and fm)
+ff4 = [800,1600];
+% Io = scale factor for modulation index
+Io4 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau4 = 2;
+% dur = duration (in sec.) of the output signal
+dur4 = 6;
+% fsamp = sampling rate
+fsamp4 = 11025;
+
+
+y4 = bell(ff4,Io4,tau4,dur4,fsamp4);
+
+%play the sound (array and sampling rate)
+soundsc(y4, fsamp4);
+
+%%Describe what you hear:
+% In this test the pitch was was at a very high level and the overtones
+% were not very pleasant to listen to. The harmonics or overtones decayed 
+% quickly but the fundamental frequency seemed to decay at a slower rate.
+
+%% Frequency Modulation Ratio Tests
+
+%% Test 1: 5:7 Ratio (f0 = 40)
+% ff = frequency vector (containing fc and fm)
+ff5 = [200, 280];
+% Io = scale factor for modulation index
+Io5 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau5 = 2;
+% dur = duration (in sec.) of the output signal
+dur5 = 6;
+% fsamp = sampling rate
+fsamp5 = 11025;
+
+
+y5 = bell(ff5,Io5,tau5,dur5,fsamp5);
+
+%play the sound (array and sampling rate)
+soundsc(y5, fsamp5);
+
+%% Test 2: 7:5 Ratio (f0 = 40)
+% ff = frequency vector (containing fc and fm)
+ff6 = [280,200];
+% Io = scale factor for modulation index
+Io6 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau6 = 2;
+% dur = duration (in sec.) of the output signal
+dur6 = 6;
+% fsamp = sampling rate
+fsamp6 = 11025;
+
+
+y6 = bell(ff6,Io6,tau6,dur6,fsamp6);
+
+%play the sound (array and sampling rate)
+soundsc(y6, fsamp6);
+
+%% Test 3: 1:6
+% ff = frequency vector (containing fc and fm)
+ff7 = [110,610];
+% Io = scale factor for modulation index
+Io7 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau7 = 2;
+% dur = duration (in sec.) of the output signal
+dur7 = 6;
+% fsamp = sampling rate
+fsamp7 = 11025;
+
+
+y7 = bell(ff7,Io7,tau7,dur7,fsamp7);
+
+%play the sound (array and sampling rate)
+soundsc(y7, fsamp7);
+
+%% Test 4: 7:11 Ratio
+% ff = frequency vector (containing fc and fm)
+ff8 = [700,1100];
+% Io = scale factor for modulation index
+Io8 = 10;
+% tau = decay parameter for A(t) and I(t)
+tau8 = 2;
+% dur = duration (in sec.) of the output signal
+dur8 = 6;
+% fsamp = sampling rate
+fsamp8 = 11025;
+
+
+y8 = bell(ff8,Io8,tau8,dur8,fsamp8);
+
+%play the sound (array and sampling rate)
+soundsc(y8, fsamp8);
+
+%% Which parameters sound best?
+
+% I think that the 5:7 or 1:2 ratios sound the best. With ratios that have
+% the carrier frequency greater than the modulating frequency the sound
+% seems clunky and like it interferes with itself. The 7:11 ratio had so
+% many tones in it that it was hard to listen to. 
+
+##### SOURCE END #####
+--></body></html>
