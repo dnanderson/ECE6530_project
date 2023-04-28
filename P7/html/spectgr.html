@@ -1,0 +1,236 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>spectgr</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-28"><meta name="DC.source" content="spectgr.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> [B,F,T] = spectgr( xx, Nfft, fs, window, Noverlap )
+<span class="comment">%SPECTGR    compute the spectrogram of a signal vector</span>
+<span class="comment">% usage:</span>
+<span class="comment">%  [B,F,T] = spectgr( xx, Nfft, fs, window, Noverlap )</span>
+<span class="comment">%</span>
+<span class="comment">%  B = spectrogram values</span>
+<span class="comment">%  F = analysis frequencies from FFT (in Hz)</span>
+<span class="comment">%  T = window position times (in sec)</span>
+<span class="comment">%</span>
+<span class="comment">%      xx = input signal vector. Must be column or row.</span>
+<span class="comment">%    Nfft = length of FFT</span>
+<span class="comment">%      fs = sampling frequency</span>
+<span class="comment">%  window = window values. If a scalar is given it is</span>
+<span class="comment">%           taken to be the window length.</span>
+<span class="comment">%  Noverlap = number of samples points common to consecutive sections</span>
+<span class="comment">%             Thus, the shift between sections is:  Nfft-Noverlap</span>
+<span class="comment">%</span>
+<span class="comment">% NOTE: all input arguments must be given; there are no defaults.</span>
+<span class="comment">%</span>
+<span class="comment">% This function is similar to the MATLAB function called specgram,</span>
+<span class="comment">%  but is implemented in a more straightforward manner.  It does not</span>
+<span class="comment">%  make the spectrogram plot.  Instead you must use plotspec.m</span>
+<span class="comment">%</span>
+
+<span class="comment">% 02-Dec-01 For COMPLEX input, generate negative freqs.</span>
+
+<span class="keyword">if</span> nargout==0
+   disp(<span class="string">'WARNING: spectgr does NOT plot automatically'</span>)
+   disp(<span class="string">'..if you want a plot, use plotspec() instead.'</span>)
+   disp(<span class="string">'..it calls this function and then does the plot.'</span>)
+   disp(<span class="string">'.....do   help plotspec   for more information.'</span>)
+   disp(<span class="string">'.....NOTE: plotspec() has different args from specgram().'</span>)
+   disp(<span class="string">'.....'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> nargin&lt;5
+   error(<span class="string">'SPECTGR: must give all five input arguments'</span>)
+<span class="keyword">end</span>
+L = length(window);
+<span class="keyword">if</span> L&lt;=1
+   <span class="keyword">if</span>( L==0 ), L = Nfft, <span class="keyword">end</span>
+   L = window;
+   window = 0.5 * (1-cos(2*pi*(1:L)'/(L+1)));
+<span class="keyword">end</span>
+<span class="keyword">if</span> size(xx,1)==1
+   xx = xx(:);
+<span class="keyword">end</span>
+shift = L-Noverlap;
+<span class="keyword">if</span>( shift&lt;0 )
+   error(<span class="string">'SPECTGR: overlap must be less than window length'</span>)
+<span class="keyword">end</span>
+Nfft2 = floor(Nfft/2) + 1;
+<span class="keyword">if</span>( any(abs(imag(xx)))&gt;eps )
+   NB = Nfft;
+   COMPLEX = 1;
+<span class="keyword">else</span>
+   NB = Nfft2;
+   COMPLEX = 0;
+<span class="keyword">end</span>
+
+Lx = length(xx);
+num_segs = 1 + fix( (Lx-L)/shift );
+B = zeros( NB, num_segs );     <span class="comment">%- Pre-allocate the matrix</span>
+iseg = 0;
+<span class="keyword">while</span>( iseg&lt;num_segs )
+    nstart = 1 + iseg*shift;
+    xsegw = window .* xx( nstart:nstart+L-1);
+    XX = fft( xsegw, Nfft );
+    iseg = iseg + 1;
+    B(:,iseg) = XX(1:NB);
+<span class="keyword">end</span>
+T = (L/2 + shift*(0:num_segs-1) ) / fs;
+<span class="keyword">if</span> COMPLEX
+   B = [ B(Nfft2+1:Nfft,:); B(1:Nfft2,:)];   <span class="comment">%- same as fftshift()</span>
+   F = ((Nfft2-Nfft):(Nfft2-1))/Nfft * fs;
+<span class="keyword">else</span>
+   F = (0:(NB-1))/Nfft * fs;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">WARNING: spectgr does NOT plot automatically
+..if you want a plot, use plotspec() instead.
+..it calls this function and then does the plot.
+.....do   help plotspec   for more information.
+.....NOTE: plotspec() has different args from specgram().
+.....
+</pre><pre class="codeoutput error">Error using spectgr
+SPECTGR: must give all five input arguments
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [B,F,T] = spectgr( xx, Nfft, fs, window, Noverlap )
+%SPECTGR    compute the spectrogram of a signal vector
+% usage:
+%  [B,F,T] = spectgr( xx, Nfft, fs, window, Noverlap )
+%
+%  B = spectrogram values
+%  F = analysis frequencies from FFT (in Hz)
+%  T = window position times (in sec)
+%
+%      xx = input signal vector. Must be column or row.
+%    Nfft = length of FFT
+%      fs = sampling frequency
+%  window = window values. If a scalar is given it is
+%           taken to be the window length.
+%  Noverlap = number of samples points common to consecutive sections
+%             Thus, the shift between sections is:  Nfft-Noverlap
+%
+% NOTE: all input arguments must be given; there are no defaults.
+%
+% This function is similar to the MATLAB function called specgram,
+%  but is implemented in a more straightforward manner.  It does not
+%  make the spectrogram plot.  Instead you must use plotspec.m
+%
+
+% 02-Dec-01 For COMPLEX input, generate negative freqs.
+
+if nargout==0
+   disp('WARNING: spectgr does NOT plot automatically')
+   disp('..if you want a plot, use plotspec() instead.')
+   disp('..it calls this function and then does the plot.')
+   disp('.....do   help plotspec   for more information.')
+   disp('.....NOTE: plotspec() has different args from specgram().')
+   disp('.....')
+end
+if nargin<5
+   error('SPECTGR: must give all five input arguments')
+end
+L = length(window);
+if L<=1
+   if( L==0 ), L = Nfft, end
+   L = window;
+   window = 0.5 * (1-cos(2*pi*(1:L)'/(L+1)));
+end
+if size(xx,1)==1
+   xx = xx(:);
+end
+shift = L-Noverlap;
+if( shift<0 )
+   error('SPECTGR: overlap must be less than window length')
+end
+Nfft2 = floor(Nfft/2) + 1;
+if( any(abs(imag(xx)))>eps )
+   NB = Nfft;
+   COMPLEX = 1;
+else
+   NB = Nfft2;
+   COMPLEX = 0;
+end
+
+Lx = length(xx);
+num_segs = 1 + fix( (Lx-L)/shift );
+B = zeros( NB, num_segs );     %- Pre-allocate the matrix
+iseg = 0;
+while( iseg<num_segs ) 
+    nstart = 1 + iseg*shift;
+    xsegw = window .* xx( nstart:nstart+L-1);
+    XX = fft( xsegw, Nfft );
+    iseg = iseg + 1;
+    B(:,iseg) = XX(1:NB);    
+end
+T = (L/2 + shift*(0:num_segs-1) ) / fs;
+if COMPLEX
+   B = [ B(Nfft2+1:Nfft,:); B(1:Nfft2,:)];   %- same as fftshift()
+   F = ((Nfft2-Nfft):(Nfft2-1))/Nfft * fs;
+else
+   F = (0:(NB-1))/Nfft * fs;
+end
+
+##### SOURCE END #####
+--></body></html>
